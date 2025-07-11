@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Me – Document Upload</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <h2>🔐 Verify Ownership</h2>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li style="color: green;">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <label>🪪 National ID (Front & Back):</label><br>
+        <input type="file" name="id_doc"><br><br>
+
+        <label>📜 Title Deed / Vehicle Logbook:</label><br>
+        <input type="file" name="ownership_doc"><br><br>
+
+        <label>💡 Utility Bill (ZESA, Water):</label><br>
+        <input type="file" name="utility_bill"><br><br>
+
+        <label>📷 Photo with ID in front of house (optional):</label><br>
+        <input type="file" name="selfie"><br><br>
+
+        <label>📝 Signed Declaration Form:</label><br>
+        <input type="file" name="declaration"><br><br>
+
+        <button type="submit">✅ Submit for Verification</button>
+    </form>
+</body>
+</html>
