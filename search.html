@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Search for Verification</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="form-control.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>🔍 Search for Verification</h2>
+    <form method="GET" action="/cgi-bin/search.py">
+      <label>Select Category:</label>
+      <select id="category" name="category" required>
+        <option value="">-- Choose --</option>
+        <option value="Profession">Profession</option>
+        <option value="Car">Car</option>
+        <option value="Stand">Stand</option>
+        <option value="House">House</option>
+        <option value="Company">Company</option>
+      </select>
+
+      <div id="dynamic-fields"></div>
+
+      <button type="submit">Search</button>
+    </form>
+
+    <a class="button" href="index.html">← Back Home</a>
+  </div>
+</body>
+</html>

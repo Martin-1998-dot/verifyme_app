@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🚨 Report Fraud or Suspicious Person</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="form-control.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>🚨 Report Fraud or Suspicious Person</h2>
+    <form method="POST" action="/cgi-bin/report.py" enctype="multipart/form-data">
+      <label>Select Category:</label>
+      <select id="category" name="category" required>
+        <option value="">-- Choose --</option>
+        <option value="Profession">Profession</option>
+        <option value="Car">Car</option>
+        <option value="Stand">Stand</option>
+        <option value="House">House</option>
+        <option value="Company">Company</option>
+      </select>
+
+      <div id="dynamic-fields"></div>
+
+      <label>Description / What Happened:</label>
+      <textarea name="description" placeholder="Tell us what happened..." required></textarea>
+
+      <label>Upload Proof / Evidence:</label>
+      <input type="file" name="evidence" required>
+
+      <button type="submit">Submit Report</button>
+    </form>
+
+    <a class="button" href="index.html">← Back Home</a>
+  </div>
+</body>
+</html>

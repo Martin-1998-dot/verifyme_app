@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+    <title>Admin Dashboard – Verifications</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+<a href="/export" class="btn btn-success mb-3">⬇️ Export All to Excel (CSV)</a>
+    <h2 class="mb-4">📋 Verified Submissions</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Category</th>
+                <th>Full Name</th>
+                <th>ID Number</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Proof 1</th>
+                <th>Proof 2</th>
+                <th>Proof 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in records %}
+            <tr>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+                <td>
+                  {% if row[6] %}
+                    <a href="/static/{{ row[6] | basename }}" target="_blank">View</a>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if row[7] %}
+                    <a href="/static/{{ row[7] | basename }}" target="_blank">View</a>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if row[8] %}
+                    <a href="/static/{{ row[8] | basename }}" target="_blank">View</a>
+                  {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

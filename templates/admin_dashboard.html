@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard - Verify Me</title>
+  <style>
+    body { font-family: Arial; margin: 40px auto; max-width: 900px; }
+    h2 { text-align: center; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #eee; }
+    a { text-decoration: none; color: #007BFF; margin-right: 10px; }
+    footer { margin-top: 40px; font-size: 12px; color: gray; text-align: center; }
+  </style>
+</head>
+<body>
+  <h2>Admin Dashboard</h2>
+  <p><a href="{{ url_for('logout') }}">Logout</a></p>
+  {% if uploads %}
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Admin Note</th>
+        <th>Uploaded At</th>
+        <th>Files</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for upload in uploads %}
+      <tr>
+        <td>{{ upload.id }}</td>
+        <td>{{ upload.user.fullname }} ({{ upload.user.email }})</td>
+        <td>{{ upload.category }}</td>
+        <td>{{ upload.description or '–' }}</td>
+        <td>{{ upload.status }}</td>
+        <td>{{ upload.admin_note or '–' }}</td>
+        <td>{{ upload.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>
+          <a href="{{ url_for('uploaded_file', user_id=upload.uploader_id, filename=upload.filename.split('/')[-1]) }}" target="_blank">Doc</a> |
+          <a href="{{ url_for('uploaded_file', user_id=upload.uploader_id, filename=upload.id_filename.split('/')[-1]) }}" target="_blank">ID</a>
+        </td>
+        <td>
+          {% if upload.status == 'Pending' %}
+            <a href="{{ url_for('approve_upload', upload_id=upload.id) }}">Approve</a> |
+            <a href="{{ url_for('reject_upload', upload_id=upload.id) }}">Reject</a>
+          {% else %}
+            N/A
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p>No uploads found.</p>
+  {% endif %}
+  <footer>&copy; {{ 2025 }} Sinathi Mpande | sinathimpande32@gmail.com</footer>
+</body>
+</html>

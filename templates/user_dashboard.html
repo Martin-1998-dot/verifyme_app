@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+  <title>Your Dashboard - Verify Me</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 40px;
+      background-color: #f9f9f9;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 90%;
+      max-width: 800px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      font-size: 14px;
+    }
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: gray;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h2>Welcome, {{ user.fullname }}</h2>
+  <p>
+    <a href="{{ url_for('upload') }}">Upload New Document</a> | 
+    <a href="{{ url_for('logout') }}">Logout</a>
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Admin Note</th>
+        <th>Document</th>
+        <th>ID Document</th>
+        <th>Uploaded At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for upload in uploads %}
+      <tr>
+        <td>{{ upload.id }}</td>
+        <td>{{ upload.category }}</td>
+        <td>{{ upload.description or 'N/A' }}</td>
+        <td>{{ upload.status }}</td>
+        <td>{{ upload.admin_note or '' }}</td>
+        <td><a href="{{ url_for('uploaded_file', user_id=user.id, filename=upload.filename.split('/')[-1]) }}" target="_blank">View</a></td>
+        <td><a href="{{ url_for('uploaded_file', user_id=user.id, filename=upload.id_filename.split('/')[-1]) }}" target="_blank">View</a></td>
+        <td>{{ upload.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="8">No uploads yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <footer>© 2025 Sinathi Mpande — All rights reserved | sinathimpande32@gmail.com</footer>
+</body>
+</html>

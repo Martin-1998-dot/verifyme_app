@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reject Upload - Verify Me</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 80px; }
+    form { display: inline-block; text-align: left; width: 350px; }
+    textarea { width: 100%; padding: 8px; margin: 5px 0; }
+    input[type="submit"] { padding: 8px 16px; margin-top: 10px; }
+    footer { margin-top: 50px; font-size: 12px; color: gray; }
+  </style>
+</head>
+<body>
+  <h2>Reject Upload #{{ upload.id }}</h2>
+  <form method="post">
+    Reason for rejection:<br>
+    <textarea name="note" required></textarea><br>
+    <input type="submit" value="Submit">
+  </form>
+  <p><a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p>
+  <footer>&copy; {{ 2025 }} Sinathi Mpande | sinathimpande32@gmail.com</footer>
+</body>
+</html>

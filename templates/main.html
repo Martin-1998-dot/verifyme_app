@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VerifyMe - Upload & Search Verification</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function toggleSection() {
+            const action = document.querySelector('input[name="action"]:checked').value;
+            document.getElementById('upload-section').style.display = action === 'upload' ? 'block' : 'none';
+            document.getElementById('search-section').style.display = action === 'search' ? 'block' : 'none';
+        }
+        window.onload = toggleSection;
+
+        // Optional: Add client-side validation if needed here
+    </script>
+</head>
+<body class="container mt-4">
+
+    <h1 class="mb-4">VerifyMe - Upload or Search Verification</h1>
+
+    {% if message %}
+    <div class="alert alert-info">{{ message }}</div>
+    {% endif %}
+
+    <div class="mb-3">
+        <label class="form-label">Choose an action:</label><br/>
+        <input type="radio" name="action" value="upload" id="radio-upload" onclick="toggleSection()" checked> <label for="radio-upload">Upload Verification</label><br/>
+        <input type="radio" name="action" value="search" id="radio-search" onclick="toggleSection()"> <label for="radio-search">Search Verification</label>
+    </div>
+
+    <!-- Upload Section -->
+    <div id="upload-section">
+        <form method="post" action="/" enctype="multipart/form-data" novalidate>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
+                <select class="form-select" name="category" id="category" required>
+                    <option value="">-- Choose Category --</option>
+                    <option value="profession">Profession</option>
+                    <option value="company">Company</option>
+                    <option value="houses">Houses</option>
+                    <option value="stands">Stands</option>
+                    <option value="cars">Cars</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                <input type="text" name="full_name" id="full_name" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="id_number" class="form-label">ID Number <span class="text-danger">*</span></label>
+                <input type="text" name="id_number" id="id_number" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                <input type="tel" name="phone" id="phone" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                <input type="email" name="email" id="email" class="form-control" required />
+            </div>
+
+            <!-- Extra inputs like property_id or plate can be dynamically shown by JavaScript later -->
+
+            <div class="mb-3">
+                <label for="proof1" class="form-label">Proof Document 1 <span class="text-danger">*</span></label>
+                <input type="file" name="proof1" id="proof1" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="proof2" class="form-label">Proof Document 2</label>
+                <input type="file" name="proof2" id="proof2" class="form-control" accept=".pdf,.jpg,.jpeg,.png" />
+            </div>
+
+            <div class="mb-3">
+                <label for="proof3" class="form-label">Proof Document 3 (optional)</label>
+                <input type="file" name="proof3" id="proof3" class="form-control" accept=".pdf,.jpg,.jpeg,.png" />
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit Verification</button>
+        </form>
+    </div>
+
+    <!-- Search Section -->
+    <div id="search-section" style="display:none;">
+        <form method="post" action="/search" novalidate>
+            <div class="mb-3">
+                <label for="search_category" class="form-label">Category <span class="text-danger">*</span></label>
+                <select class="form-select" name="category" id="search_category" required>
+                    <option value="">-- Select --</option>
+                    <option value="car">Car</option>
+                    <option value="profession">Profession</option>
+                    <option value="house">House</option>
+                </select>
+            </div>
+
+            <!-- Search fields updated dynamically via JS -->
+            <div id="car-search-section" class="search-section" style="display:none;">
+                <div class="mb-3">
+                    <label>Owner Full Name <span class="text-danger">*</span></label>
+                    <input type="text" name="full_name" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Owner ID Number <span class="text-danger">*</span></label>
+                    <input type="text" name="id_number" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>License Plate <span class="text-danger">*</span></label>
+                    <input type="text" name="plate" class="form-control" />
+                </div>
+            </div>
+
+            <div id="profession-search-section" class="search-section" style="display:none;">
+                <div class="mb-3">
+                    <label>Full Name <span class="text-danger">*</span></label>
+                    <input type="text" name="full_name" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>ID Number <span class="text-danger">*</span></label>
+                    <input type="text" name="id_number" class="form-control" />
+                </div>
+            </div>
+
+            <div id="house-search-section" class="search-section" style="display:none;">
+                <div class="mb-3">
+                    <label>Full Name <span class="text-danger">*</span></label>
+                    <input type="text" name="full_name" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>ID Number <span class="text-danger">*</span></label>
+                    <input type="text" name="id_number" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label>Stand / Property Number <span class="text-danger">*</span></label>
+                    <input type="text" name="property_id" class="form-control" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Search</button>
+        </form>
+    </div>
+
+    <script>
+        function onSearchCategoryChange() {
+            const cat = document.getElementById("search_category").value;
+            document.querySelectorAll(".search-section").forEach(div => div.style.display = "none");
+            if (cat) document.getElementById(cat + "-search-section").style.display = "block";
+        }
+        document.getElementById("search_category").addEventListener("change", onSearchCategoryChange);
+
+        // Show/hide search fields on page load
+        window.onload = function() {
+            toggleSection();
+            onSearchCategoryChange();
+        };
+    </script>
+</body>
+</html>

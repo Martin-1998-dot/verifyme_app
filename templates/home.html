@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>VerifyMe Home</title></head>
+<body>
+    <h1>Welcome to VerifyMe App</h1>
+    {% if username %}
+        <p>Hello, {{ username }}! <a href="/logout">Logout</a></p>
+        <p><a href="/verify">Go to Verify Page</a></p>
+    {% else %}
+        <p><a href="/login">Login</a> or <a href="/register">Register</a></p>
+    {% endif %}
+</body>
+</html>

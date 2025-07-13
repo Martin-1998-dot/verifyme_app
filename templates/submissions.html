@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Submissions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+    <h2 class="mb-4">📋 Verification Submissions</h2>
+
+    <form method="get" action="/admin/submissions" class="row g-3 mb-4">
+        <div class="col-md-4">
+            <select name="status" class="form-select">
+                <option value="">-- Filter by Status --</option>
+                <option value="pending" {% if status == 'pending' %}selected{% endif %}>Pending</option>
+                <option value="approved" {% if status == 'approved' %}selected{% endif %}>Approved</option>
+                <option value="rejected" {% if status == 'rejected' %}selected{% endif %}>Rejected</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <select name="category" class="form-select">
+                <option value="">-- Filter by Category --</option>
+                <option value="profession" {% if category == 'profession' %}selected{% endif %}>Profession</option>
+                <option value="company" {% if category == 'company' %}selected{% endif %}>Company</option>
+                <option value="houses" {% if category == 'houses' %}selected{% endif %}>Houses</option>
+                <option value="stands" {% if category == 'stands' %}selected{% endif %}>Stands</option>
+                <option value="cars" {% if category == 'cars' %}selected{% endif %}>Cars</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
+        </div>
+    </form>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Full Name</th>
+                <th>ID Number</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                <td>{{ row['category'] }}</td>
+                <td>{{ row['full_name'] }}</td>
+                <td>{{ row['id_number'] }}</td>
+                <td>{{ row['phone'] }}</td>
+                <td>{{ row['status'] }}</td>
+                <td>{{ row['created_at'] }}</td>
+                <td>
+                    {% if row['status'] == 'pending' %}
+                        <a href="/admin/approve/{{ row['id'] }}" class="btn btn-success btn-sm">Approve</a>
+                        <a href="/admin/reject/{{ row['id'] }}" class="btn btn-danger btn-sm">Reject</a>
+                    {% else %}
+                        <span class="text-muted">No Action</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>Upload Files</title></head>
+<body>
+    <h2>Upload Documents</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <label>Upload ID:</label>
+        <input type="file" name="id_file"><br><br>
+
+        <label>Upload Face Photo:</label>
+        <input type="file" name="face_file"><br><br>
+
+        <label>Upload Proof of Address:</label>
+        <input type="file" name="address_file"><br><br>
+
+        <input type="submit" value="Upload">
+    </form>
+
+    <p><a href="{{ url_for('dashboard') }}">← Back to Dashboard</a></p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <p><strong>{{ category.title() }}:</strong> {{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+</body>
+</html>

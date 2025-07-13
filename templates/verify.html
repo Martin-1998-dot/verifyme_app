@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Information</title>
+</head>
+<body>
+    <h2>Hello {{ username }}, Verify Information Below</h2>
+
+    <form method="post" action="/verify">
+        <label>Select Category:</label><br/>
+        <select name="category" required>
+            <option value="property">Verify Property Ownership</option>
+            <option value="vehicle">Verify Vehicle Ownership</option>
+            <option value="id">Verify ID or Document</option>
+        </select><br/><br/>
+
+        <label>Enter Relevant Info:</label><br/>
+        <input type="text" name="value" required/><br/><br/>
+
+        <input type="submit" value="Verify" />
+    </form>
+
+    {% if result %}
+    <h3>Result:</h3>
+    <p>{{ result }}</p>
+    {% endif %}
+
+    <p><a href="/">Back to Home</a></p>
+</body>
+</html>
