@@ -1,3 +1,6 @@
+#!/bin/bash
+
+cat << 'PY' > main.py
 from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
@@ -36,8 +39,6 @@ async def upload(
         with open(filepath, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
     return RedirectResponse(url="/", status_code=303)
+PY
 
-@app.route('/')
-def home():
-    return 'Welcome to Verify Me!'
-
+echo "✅ main.py FastAPI server created successfully."
